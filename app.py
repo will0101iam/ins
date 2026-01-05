@@ -1,7 +1,26 @@
 import streamlit as st
 import os
 import shutil
+import subprocess
+import sys
 from scrape_insta import scrape_instagram
+
+# Ensure Playwright browsers are installed
+def install_playwright_browsers():
+    try:
+        # Check if browser is installed by trying to launch it? 
+        # Or just run install command, it's idempotent.
+        print("Checking Playwright browsers...")
+        subprocess.check_call([sys.executable, "-m", "playwright", "install", "chromium"])
+        print("Playwright browsers installed.")
+    except Exception as e:
+        print(f"Error installing browsers: {e}")
+
+# Run installation only once
+if "browsers_installed" not in st.session_state:
+    with st.spinner("正在初始化运行环境 (首次运行可能需要几分钟)..."):
+        install_playwright_browsers()
+    st.session_state["browsers_installed"] = True
 
 st.set_page_config(page_title="Instagram Downloader", page_icon="📸")
 
