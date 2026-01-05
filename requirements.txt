@@ -1,0 +1,4 @@
+instagrapi==2.2.1
+playwright==1.57.0
+streamlit==1.50.0
+requests==2.32.4
